@@ -4,7 +4,15 @@ var http = require('http'),
   repl = require('repl');
 
 var i = 0;
-repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
+
+repl.start({
+  prompt: " > ",
+  input: process.stdin,
+  output: process.stdout,
+  eval: runCommand
+});
+
+function runCommand(cmd, context, filename, callback) {
   var requestNumber = i++;
   console.time('process_time_' + requestNumber);
 
@@ -43,4 +51,4 @@ repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
   });
 
   req.end();
-});
+};
