@@ -6,6 +6,7 @@ var http = require('http'),
 var i = 0;
 repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
   var requestNumber = i++;
+  console.time('process_time_' + requestNumber);
 
   var options = {
     host: 'localhost',
@@ -15,6 +16,8 @@ repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
   };
 
   var timeout = setTimeout(function () {
+    //Beep sound
+    console.log('\u0007');
     console.log('Timed out:', requestNumber);
   }, 10);
 
@@ -30,6 +33,7 @@ repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
     res.on('end', function() {
       clearTimeout(timeout);
       console.log('Done:', requestNumber, JSON.parse(responseString));
+      console.timeEnd('process_time_' + requestNumber);
     });
   });
 
