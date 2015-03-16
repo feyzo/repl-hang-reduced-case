@@ -19,7 +19,8 @@ repl.start(' >', process.stdin, function (cmd, context, filename, callback) {
     //Beep sound
     console.log('\u0007');
     console.log('Timed out:', requestNumber);
-  }, 10);
+    process.exit();
+  }, 20);
 
   var req = http.request(options, function(res) {
     res.setEncoding('utf-8');
